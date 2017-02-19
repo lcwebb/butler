@@ -17,10 +17,14 @@ class DemandeController extends Controller
      */
     public function ListDemande()
     {
-        $demande = $this->getDoctrine()
+        $demandes = $this->getDoctrine()
             ->getRepository('AppBundle:Demande')
             ->findAll();
 
+        return $this->render(
+        'admin/listing.html.twig',
+        array('demandes'  => $demandes)
+        );
     }
 
     /**
@@ -32,6 +36,34 @@ class DemandeController extends Controller
             ->getRepository('AppBundle:Demande')
             ->find($id);
 
+        return $this->render(
+            'admin/listing.html.twig',
+            array('demande'  => $demande)
+        );
+    }
+
+    /**
+     * @Route("/create_demande/{id", name="create_demande")
+     */
+    public function createDemande($id, $demande, $horaireDebut, $horaireFin, $prixMax, $prixValideHT, $prixValideTTC, $status)
+    {
+        $Demande = new Demande();
+        $Demande->setDemande($demande);
+        $Demande->setIdClient($id);
+        $Demande->setHoraireDebut($horaireDebut);
+        $Demande->setHoraireFin($horaireFin);
+        $Demande->setPrixMax($prixMax);
+        $Demande->setPrixValideHt($prixValideHT);
+        $Demande->setPrixValideTtc($prixValideTTC);
+        $Demande->setStatus($status);
+
+        $em = $this->getDoctrine()->getManager();
+
+        // tells Doctrine you want to (eventually) save the Client (no queries yet)
+        $em->persist($Demande);
+
+        // actually executes the queries (i.e. the INSERT query)
+        $em->flush();
     }
 
 }

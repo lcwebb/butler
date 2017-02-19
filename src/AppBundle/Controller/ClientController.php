@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\AdresseLivraison;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Cb;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -167,7 +168,6 @@ class ClientController extends Controller
         $em->flush();
 
         return new Response('CB ' . $cbClient->getId(). ' added');
-
     }
 
     public function getBraintreeVaultId($id)
@@ -176,5 +176,23 @@ class ClientController extends Controller
         //envoyer ordre de paiement CB avec API braintree
 
 
+    }
+
+    /**
+     * @Route("/add_shipping_address/{id}", name="add_shipping_address")
+     */
+    public function addShippingAdress($id, $adresse, $cp, $ville)
+    {
+        $shippingAdress = new AdresseLivraison();
+        $shippingAdress->setIdClient($id);
+        $shippingAdress->setAdresse($adresse);
+        $shippingAdress->setCp($cp);
+        $shippingAdress->setVille($ville);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($shippingAdress);
+
+        $em->flush();
     }
 }
