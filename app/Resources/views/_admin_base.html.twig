@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}MonButler.com - Vos Envies à Domicile{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MonButler.fr -- Nous vous livrons vos envies à votre domicile">
+    <meta name="Ludotech" content="">
+
+    {% block stylesheets %}
+        <!--<link rel="icon" href="{{ asset('bundles/ButlerBundle/assets/img/favicon.ico') }}">-->
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bundles/ButlerBundle/assets/css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/ButlerBundle/assets/css/banner.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/ButlerBundle/assets/css/dashboard.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/ButlerBundle/assets/css/stepbar.css') }}" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="{{ asset('bundles/ButlerBundle/assets/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/ButlerBundle/assets/css/ionicons.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/ButlerBundle/assets/admin-slide-menu/css/style.min.css') }}" rel="stylesheet" >
+        <link href="{{ asset('bundles/ButlerBundle/assets/admin-slide-menu/css/style.css') }}" rel="stylesheet">
+
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ asset('bundles/ButlerBundle/assets/js/ie10-viewport-bug-workaround.js') }}"></script>
+    <script src="{{ asset('bundles/ButlerBundle/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/ButlerBundle/assets/js/bootstrap.min2.js') }}"></script>
+    <script src="https://use.fontawesome.com/5a79941c20.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <script>
+
+        /**
+         * Slide left instantiation and action.
+         */
+        var slideLeft = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'slide-left',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var slideLeftBtn = document.querySelector('#c-button--slide-left');
+
+        slideLeftBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            slideLeft.open();
+        });
+
+
+
+
+
+        /**
+         * Push left instantiation and action.
+         */
+        var pushLeft = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'push-left',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var pushLeftBtn = document.querySelector('#c-button--push-left');
+
+        pushLeftBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            pushLeft.open();
+        });
+
+
+
+
+
+        /**
+         * Slide right instantiation and action.
+         */
+        var slideRight = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'slide-right',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var slideRightBtn = document.querySelector('#c-button--slide-right');
+
+        slideRightBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            slideRight.open();
+        });
+
+
+
+
+
+        /**
+         * Push right instantiation and action.
+         */
+        var pushRight = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'push-right',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var pushRightBtn = document.querySelector('#c-button--push-right');
+
+        pushRightBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            pushRight.open();
+        });
+
+
+
+
+
+        /**
+         * Slide top instantiation and action.
+         */
+        var slideTop = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'slide-top',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var slideTopBtn = document.querySelector('#c-button--slide-top');
+
+        slideTopBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            slideTop.open();
+        });
+
+
+
+
+
+        /**
+         * Push top instantiation and action.
+         */
+        var pushTop = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'push-top',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var pushTopBtn = document.querySelector('#c-button--push-top');
+
+        pushTopBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            pushTop.open();
+        });
+
+
+
+
+
+        /**
+         * Slide bottom instantiation and action.
+         */
+        var slideBottom = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'slide-bottom',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var slideBottomBtn = document.querySelector('#c-button--slide-bottom');
+
+        slideBottomBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            slideBottom.open();
+        });
+
+
+
+
+
+        /**
+         * Push bottom instantiation and action.
+         */
+        var pushBottom = new Menu({
+            wrapper: '#o-wrapper',
+            type: 'push-bottom',
+            menuOpenerClass: '.c-button',
+            maskId: '#c-mask'
+        });
+
+        var pushBottomBtn = document.querySelector('#c-button--push-bottom');
+
+        pushBottomBtn.addEventListener('click', function(e) {
+            e.preventDefault;
+            pushBottom.open();
+        });
+
+    </script>
+{% endblock %}
+</body>
+</html>

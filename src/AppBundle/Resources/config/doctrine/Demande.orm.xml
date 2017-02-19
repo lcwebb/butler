@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Demande" table="demande">
+    <indexes>
+      <index name="fk_client_demande_idx" columns="id_client"/>
+      <index name="fk_user_demande1_idx" columns="id_gestionnaire"/>
+      <index name="fk_user_demande2_idx" columns="id_butler"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="demande" type="text" column="demande" length="65535" nullable="false"/>
+    <field name="horaireDebut" type="datetime" column="horaire_debut" nullable="true"/>
+    <field name="horaireFin" type="datetime" column="horaire_fin" nullable="true"/>
+    <field name="prixMax" type="float" column="prix_max" precision="10" scale="0" nullable="true"/>
+    <field name="prixValideHt" type="float" column="prix_valide_HT" precision="10" scale="0" nullable="true"/>
+    <field name="prixValideTtc" type="float" column="prix_valide_TTC" precision="10" scale="0" nullable="true"/>
+    <field name="status" type="string" column="status" length="45" nullable="false"/>
+    <many-to-one field="idButler" target-entity="User">
+      <join-columns>
+        <join-column name="id_butler" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idGestionnaire" target-entity="User">
+      <join-columns>
+        <join-column name="id_gestionnaire" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idClient" target-entity="Client">
+      <join-columns>
+        <join-column name="id_client" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

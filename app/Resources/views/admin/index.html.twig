@@ -1,0 +1,12 @@
+{% extends '_admin_base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include '_admin_searchbar.html.twig' %}
+            {% include '_admin_sidebar.html.twig' %}
+            {% include '_admin_body.html.twig' %}
+        </div>
+    </div>
+    {% include '_admin_step_js.html.twig' %}
+{% endblock %}
