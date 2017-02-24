@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * Recruitment
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="recruitment")
  * @ORM\Entity
  */
-class User
+class Recruitment
 {
     /**
      * @var string
@@ -36,44 +36,51 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="phone", type="string", length=45, nullable=true)
      */
     private $phone;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="start_date", type="datetime", nullable=true)
+     * @ORM\Column(name="availability_sunday", type="string", length=45, nullable=true)
      */
-    private $startDate;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="end_date", type="datetime", nullable=true)
-     */
-    private $endDate;
+    private $availabilitySunday;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="calendar", type="string", length=255, nullable=true)
+     * @ORM\Column(name="available_more_than_20_hours", type="string", length=45, nullable=true)
      */
-    private $calendar;
+    private $availableMoreThan20Hours;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=5, nullable=true)
+     * @ORM\Column(name="auto_entrepreneur", type="string", length=45, nullable=true)
      */
-    private $type;
+    private $autoEntrepreneur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="age", type="string", length=45, nullable=true)
+     */
+    private $age;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registration_date", type="datetime", nullable=true)
+     */
+    private $registrationDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cv", type="blob", length=65535, nullable=true)
+     */
+    private $cv;
 
     /**
      * @var \DateTime
@@ -104,7 +111,7 @@ class User
      * Set name
      *
      * @param string $name
-     * @return User
+     * @return Recruitment
      */
     public function setName($name)
     {
@@ -127,7 +134,7 @@ class User
      * Set firstname
      *
      * @param string $firstname
-     * @return User
+     * @return Recruitment
      */
     public function setFirstname($firstname)
     {
@@ -150,7 +157,7 @@ class User
      * Set email
      *
      * @param string $email
-     * @return User
+     * @return Recruitment
      */
     public function setEmail($email)
     {
@@ -170,33 +177,10 @@ class User
     }
 
     /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
      * Set phone
      *
      * @param string $phone
-     * @return User
+     * @return Recruitment
      */
     public function setPhone($phone)
     {
@@ -216,102 +200,148 @@ class User
     }
 
     /**
-     * Set startDate
+     * Set availabilitySunday
      *
-     * @param \DateTime $startDate
-     * @return User
+     * @param string $availabilitySunday
+     * @return Recruitment
      */
-    public function setStartDate($startDate)
+    public function setAvailabilitySunday($availabilitySunday)
     {
-        $this->startDate = $startDate;
+        $this->availabilitySunday = $availabilitySunday;
 
         return $this;
     }
 
     /**
-     * Get startDate
-     *
-     * @return \DateTime 
-     */
-    public function getStartDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * Set endDate
-     *
-     * @param \DateTime $endDate
-     * @return User
-     */
-    public function setEndDate($endDate)
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    /**
-     * Get endDate
-     *
-     * @return \DateTime 
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * Set calendar
-     *
-     * @param string $calendar
-     * @return User
-     */
-    public function setCalendar($calendar)
-    {
-        $this->calendar = $calendar;
-
-        return $this;
-    }
-
-    /**
-     * Get calendar
+     * Get availabilitySunday
      *
      * @return string 
      */
-    public function getCalendar()
+    public function getAvailabilitySunday()
     {
-        return $this->calendar;
+        return $this->availabilitySunday;
     }
 
     /**
-     * Set type
+     * Set availableMoreThan20Hours
      *
-     * @param string $type
-     * @return User
+     * @param string $availableMoreThan20Hours
+     * @return Recruitment
      */
-    public function setType($type)
+    public function setAvailableMoreThan20Hours($availableMoreThan20Hours)
     {
-        $this->type = $type;
+        $this->availableMoreThan20Hours = $availableMoreThan20Hours;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get availableMoreThan20Hours
      *
      * @return string 
      */
-    public function getType()
+    public function getAvailableMoreThan20Hours()
     {
-        return $this->type;
+        return $this->availableMoreThan20Hours;
+    }
+
+    /**
+     * Set autoEntrepreneur
+     *
+     * @param string $autoEntrepreneur
+     * @return Recruitment
+     */
+    public function setAutoEntrepreneur($autoEntrepreneur)
+    {
+        $this->autoEntrepreneur = $autoEntrepreneur;
+
+        return $this;
+    }
+
+    /**
+     * Get autoEntrepreneur
+     *
+     * @return string 
+     */
+    public function getAutoEntrepreneur()
+    {
+        return $this->autoEntrepreneur;
+    }
+
+    /**
+     * Set age
+     *
+     * @param string $age
+     * @return Recruitment
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return string 
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set registrationDate
+     *
+     * @param \DateTime $registrationDate
+     * @return Recruitment
+     */
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationDate
+     *
+     * @return \DateTime 
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * Set cv
+     *
+     * @param string $cv
+     * @return Recruitment
+     */
+    public function setCv($cv)
+    {
+        $this->cv = $cv;
+
+        return $this;
+    }
+
+    /**
+     * Get cv
+     *
+     * @return string 
+     */
+    public function getCv()
+    {
+        return $this->cv;
     }
 
     /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return User
+     * @return Recruitment
      */
     public function setCreatedAt($createdAt)
     {
@@ -334,7 +364,7 @@ class User
      * Set finishedAt
      *
      * @param \DateTime $finishedAt
-     * @return User
+     * @return Recruitment
      */
     public function setFinishedAt($finishedAt)
     {

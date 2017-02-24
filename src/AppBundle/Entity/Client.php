@@ -15,16 +15,16 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
-    private $nom;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
-    private $prenom;
+    private $firstname;
 
     /**
      * @var string
@@ -36,23 +36,23 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
      */
-    private $telephone;
+    private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="address", type="text", length=65535, nullable=true)
      */
-    private $adresse;
+    private $address;
 
     /**
      * @var string
@@ -64,9 +64,23 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
-    private $ville;
+    private $city;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="finished_at", type="datetime", nullable=true)
+     */
+    private $finishedAt;
 
     /**
      * @var integer
@@ -77,52 +91,74 @@ class Client
      */
     private $id;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Plan", inversedBy="idClient")
+     * @ORM\JoinTable(name="client_plan",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="id_client", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="id_plan", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $idPlan;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idPlan = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
-     * Set nom
+     * Set name
      *
-     * @param string $nom
+     * @param string $name
      * @return Client
      */
-    public function setNom($nom)
+    public function setName($name)
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get name
      *
      * @return string 
      */
-    public function getNom()
+    public function getName()
     {
-        return $this->nom;
+        return $this->name;
     }
 
     /**
-     * Set prenom
+     * Set firstname
      *
-     * @param string $prenom
+     * @param string $firstname
      * @return Client
      */
-    public function setPrenom($prenom)
+    public function setFirstname($firstname)
     {
-        $this->prenom = $prenom;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Get prenom
+     * Get firstname
      *
      * @return string 
      */
-    public function getPrenom()
+    public function getFirstname()
     {
-        return $this->prenom;
+        return $this->firstname;
     }
 
     /**
@@ -172,49 +208,49 @@ class Client
     }
 
     /**
-     * Set telephone
+     * Set phone
      *
-     * @param string $telephone
+     * @param string $phone
      * @return Client
      */
-    public function setTelephone($telephone)
+    public function setPhone($phone)
     {
-        $this->telephone = $telephone;
+        $this->phone = $phone;
 
         return $this;
     }
 
     /**
-     * Get telephone
+     * Get phone
      *
      * @return string 
      */
-    public function getTelephone()
+    public function getPhone()
     {
-        return $this->telephone;
+        return $this->phone;
     }
 
     /**
-     * Set adresse
+     * Set address
      *
-     * @param string $adresse
+     * @param string $address
      * @return Client
      */
-    public function setAdresse($adresse)
+    public function setAddress($address)
     {
-        $this->adresse = $adresse;
+        $this->address = $address;
 
         return $this;
     }
 
     /**
-     * Get adresse
+     * Get address
      *
      * @return string 
      */
-    public function getAdresse()
+    public function getAddress()
     {
-        return $this->adresse;
+        return $this->address;
     }
 
     /**
@@ -241,26 +277,72 @@ class Client
     }
 
     /**
-     * Set ville
+     * Set city
      *
-     * @param string $ville
+     * @param string $city
      * @return Client
      */
-    public function setVille($ville)
+    public function setCity($city)
     {
-        $this->ville = $ville;
+        $this->city = $city;
 
         return $this;
     }
 
     /**
-     * Get ville
+     * Get city
      *
      * @return string 
      */
-    public function getVille()
+    public function getCity()
     {
-        return $this->ville;
+        return $this->city;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Client
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set finishedAt
+     *
+     * @param \DateTime $finishedAt
+     * @return Client
+     */
+    public function setFinishedAt($finishedAt)
+    {
+        $this->finishedAt = $finishedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get finishedAt
+     *
+     * @return \DateTime 
+     */
+    public function getFinishedAt()
+    {
+        return $this->finishedAt;
     }
 
     /**
@@ -271,5 +353,38 @@ class Client
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add idPlan
+     *
+     * @param \AppBundle\Entity\Plan $idPlan
+     * @return Client
+     */
+    public function addIdPlan(\AppBundle\Entity\Plan $idPlan)
+    {
+        $this->idPlan[] = $idPlan;
+
+        return $this;
+    }
+
+    /**
+     * Remove idPlan
+     *
+     * @param \AppBundle\Entity\Plan $idPlan
+     */
+    public function removeIdPlan(\AppBundle\Entity\Plan $idPlan)
+    {
+        $this->idPlan->removeElement($idPlan);
+    }
+
+    /**
+     * Get idPlan
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIdPlan()
+    {
+        return $this->idPlan;
     }
 }

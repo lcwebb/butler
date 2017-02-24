@@ -2,21 +2,24 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\AdresseLivraison;
+use AppBundle\Entity\DeliveryAddress;
 use AppBundle\Entity\Client;
-use AppBundle\Entity\Cb;
+use AppBundle\Entity\CreditCard;
+use AppBundle\Entity\Order;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Debug\Debug;
+Debug::enable();
 
 class ClientController extends Controller
 {
     /**
      * @Route("/list_client", name="list_client")
      */
-    public function ListClient()
+    public function listClient()
     {
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Client')
@@ -39,24 +42,74 @@ class ClientController extends Controller
 
         return $this->render(
             'admin/index.html.twig',
-            array('clients'  => $client)
+            array('client'  => $client)
         );
+    }
+
+
+    /**
+     * @Route("/get_client_order/{id}", name="get_client_order")
+     */
+    public function getClientOrder($id)
+    {
+        $client = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->find($id);
+
+        //print_r($client);
+        $order = $this->getDoctrine()
+            ->getRepository('AppBundle:Order')
+            ->find($id);
+
+        $tab = array($client);
+
+        $tab[] = $order;
+
+        //print_r($tab[0]->getId()); die;
+
+        return $this->render('admin/index.html.twig', array(
+            'tab' => $tab[0],
+        ));
+    }
+
+    /**
+     * @Route("/get_client_order_all", name="get_client_order_all")
+     */
+    public function getClientOrderAll()
+    {
+        $clients = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findAll();
+
+        $orders = $this->getDoctrine()
+            ->getRepository('AppBundle:Order')
+            ->findAll();
+
+        //print_r($clients); die;
+
+
+        // renders admin/listing.html.twig
+        return $this->render('admin/listing.html.twig', array(
+            '$clients' => $clients,
+            'orders' => $orders,
+        ));
     }
 
     /**
      * @Route("/create_client", name="create_client")
      */
-    public function createClient($nom, $prenom, $email, $password, $telephone, $adresse, $cp, $ville)
+    public function createClient($name, $firstname, $email, $password, $phone, $address, $cp, $city)
     {
         $client = new Client();
-        $client->setNom($nom);
-        $client->setPrenom($prenom);
+        $client->setName($name);
+        $client->setFirstname($firstname);
         $client->setEmail($email);
         $client->setPassword(md5($password));
-        $client->setTelephone($telephone);
-        $client->setAdresse($adresse);
+        $client->setPhone($phone);
+        $client->setAddress($address);
         $client->setCp($cp);
-        $client->setVille($ville);
+        $client->setCity($city);
+        $client->setCreatedAt(new \DateTime());
 
         $em = $this->getDoctrine()->getManager();
 
@@ -70,7 +123,7 @@ class ClientController extends Controller
     /**
      * @Route("/update_client/{id}", name="update_client")
      */
-    public function updateClient($id, $nom, $prenom, $email, $telephone, $adresse, $cp, $ville)
+    public function updateClient($id, $name, $firstname, $email, $phone, $address, $cp, $city)
     {
         $client = $this->getDoctrine()
             ->getRepository('AppBundle:Client')
@@ -82,13 +135,13 @@ class ClientController extends Controller
             );
         }
 
-        $client->setNom($nom);
-        $client->setPrenom($prenom);
+        $client->setNom($name);
+        $client->setPrenom($firstname);
         $client->setEmail($email);
-        $client->setTelephone($telephone);
-        $client->setAdresse($adresse);
+        $client->setPhone($phone);
+        $client->setAdresse($address);
         $client->setCp($cp);
-        $client->setVille($ville);
+        $client->setVille($city);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -151,23 +204,23 @@ class ClientController extends Controller
     /**
      * @Route("/save_cb/{id}", name="save_cb")
      */
-    public function saveClientCB($id, $numero_carte, $date_expiration, $cvv)
+    public function saveClientCC($id, $cardNumber, $expirationDate, $cvv)
     {
         //envoyer informations bancaires sur braintree -- braintree renvoi un id ($lienVaultBraintree)
-        $cbClient = new Cb();
-        $cbClient->setDateExpiration($date_expiration);
-        $cbClient->setIdClient($id);
+        $clientCC = new CreditCard();
+        $clientCC->setExpirationDate($expirationDate);
+        $clientCC->setIdClient($id);
         //$cbClient->setLienBraintree($lienVaultBraintree);
 
         $em = $this->getDoctrine()->getManager();
 
         // tells Doctrine you want to (eventually) save the Client (no queries yet)
-        $em->persist($cbClient);
+        $em->persist($clientCC);
 
         // actually executes the queries (i.e. the INSERT query)
         $em->flush();
 
-        return new Response('CB ' . $cbClient->getId(). ' added');
+        return new Response('CB ' . $clientCC->getId(). ' added');
     }
 
     public function getBraintreeVaultId($id)
@@ -181,13 +234,13 @@ class ClientController extends Controller
     /**
      * @Route("/add_shipping_address/{id}", name="add_shipping_address")
      */
-    public function addShippingAdress($id, $adresse, $cp, $ville)
+    public function addShippingAdress($id, $address, $cp, $city)
     {
-        $shippingAdress = new AdresseLivraison();
+        $shippingAdress = new DeliveryAddress();
         $shippingAdress->setIdClient($id);
-        $shippingAdress->setAdresse($adresse);
+        $shippingAdress->setAddress($address);
         $shippingAdress->setCp($cp);
-        $shippingAdress->setVille($ville);
+        $shippingAdress->setCity($city);
 
         $em = $this->getDoctrine()->getManager();
 

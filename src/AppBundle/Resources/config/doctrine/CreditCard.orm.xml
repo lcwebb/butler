@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Cb" table="cb">
+  <entity name="AppBundle\Entity\CreditCard" table="credit_card">
     <indexes>
-      <index name="fk_client_cb_idx" columns="id_client"/>
+      <index name="fk_client_credit_card_idx" columns="id_client"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="lienBraintree" type="string" column="lien_braintree" length="255" nullable="true"/>
-    <field name="dateExpiration" type="string" column="date_expiration" length="255" nullable="true"/>
+    <field name="braintreeLink" type="string" column="braintree_link" length="255" nullable="true"/>
+    <field name="expirationDate" type="string" column="expiration_date" length="45" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+    <field name="finishedAt" type="datetime" column="finished_at" nullable="true"/>
     <many-to-one field="idClient" target-entity="Client">
       <join-columns>
         <join-column name="id_client" referenced-column-name="id"/>

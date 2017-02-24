@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Historique" table="historique">
+  <entity name="AppBundle\Entity\History" table="history">
     <indexes>
-      <index name="fk_demande_historique_idx" columns="id_demande"/>
-      <index name="fk_user_historique_idx" columns="id_user"/>
+      <index name="fk_order_history_idx" columns="id_order"/>
+      <index name="fk_user_history_idx" columns="id_user"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="message" type="text" column="message" length="65535" nullable="false"/>
-    <field name="date" type="datetime" column="date" nullable="false"/>
+    <field name="content" type="text" column="content" length="65535" nullable="true"/>
+    <field name="date" type="datetime" column="date" nullable="true"/>
     <many-to-one field="idUser" target-entity="User">
       <join-columns>
         <join-column name="id_user" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idDemande" target-entity="Demande">
+    <many-to-one field="idOrder" target-entity="Order">
       <join-columns>
-        <join-column name="id_demande" referenced-column-name="id"/>
+        <join-column name="id_order" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

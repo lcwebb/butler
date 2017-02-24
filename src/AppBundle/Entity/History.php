@@ -5,24 +5,24 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Historique
+ * History
  *
- * @ORM\Table(name="historique", indexes={@ORM\Index(name="fk_demande_historique_idx", columns={"id_demande"}), @ORM\Index(name="fk_user_historique_idx", columns={"id_user"})})
+ * @ORM\Table(name="history", indexes={@ORM\Index(name="fk_order_history_idx", columns={"id_order"}), @ORM\Index(name="fk_user_history_idx", columns={"id_user"})})
  * @ORM\Entity
  */
-class Historique
+class History
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="content", type="text", length=65535, nullable=true)
      */
-    private $message;
+    private $content;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", nullable=false)
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
@@ -46,45 +46,45 @@ class Historique
     private $idUser;
 
     /**
-     * @var \AppBundle\Entity\Demande
+     * @var \AppBundle\Entity\Order
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Demande")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_demande", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_order", referencedColumnName="id")
      * })
      */
-    private $idDemande;
+    private $idOrder;
 
 
 
     /**
-     * Set message
+     * Set content
      *
-     * @param string $message
-     * @return Historique
+     * @param string $content
+     * @return History
      */
-    public function setMessage($message)
+    public function setContent($content)
     {
-        $this->message = $message;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get message
+     * Get content
      *
      * @return string 
      */
-    public function getMessage()
+    public function getContent()
     {
-        return $this->message;
+        return $this->content;
     }
 
     /**
      * Set date
      *
      * @param \DateTime $date
-     * @return Historique
+     * @return History
      */
     public function setDate($date)
     {
@@ -117,7 +117,7 @@ class Historique
      * Set idUser
      *
      * @param \AppBundle\Entity\User $idUser
-     * @return Historique
+     * @return History
      */
     public function setIdUser(\AppBundle\Entity\User $idUser = null)
     {
@@ -137,25 +137,25 @@ class Historique
     }
 
     /**
-     * Set idDemande
+     * Set idOrder
      *
-     * @param \AppBundle\Entity\Demande $idDemande
-     * @return Historique
+     * @param \AppBundle\Entity\Order $idOrder
+     * @return History
      */
-    public function setIdDemande(\AppBundle\Entity\Demande $idDemande = null)
+    public function setIdOrder(\AppBundle\Entity\Order $idOrder = null)
     {
-        $this->idDemande = $idDemande;
+        $this->idOrder = $idOrder;
 
         return $this;
     }
 
     /**
-     * Get idDemande
+     * Get idOrder
      *
-     * @return \AppBundle\Entity\Demande 
+     * @return \AppBundle\Entity\Order 
      */
-    public function getIdDemande()
+    public function getIdOrder()
     {
-        return $this->idDemande;
+        return $this->idOrder;
     }
 }

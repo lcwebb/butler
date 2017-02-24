@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Order" table="order">
+    <indexes>
+      <index name="fk_client_order_idx" columns="id_client"/>
+      <index name="fk_user_order1_idx" columns="id_manager"/>
+      <index name="fk_user_order2_idx" columns="id_butler"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="order" type="text" column="order" length="65535" nullable="false"/>
+    <field name="startTime" type="datetime" column="start_time" nullable="true"/>
+    <field name="endTime" type="datetime" column="end_time" nullable="true"/>
+    <field name="maxPrice" type="float" column="max_price" precision="10" scale="0" nullable="true"/>
+    <field name="validPriceHt" type="float" column="valid_price_HT" precision="10" scale="0" nullable="true"/>
+    <field name="validPriceTtc" type="float" column="valid_price_TTC" precision="10" scale="0" nullable="true"/>
+    <field name="status" type="string" column="status" length="45" nullable="true"/>
+    <field name="pickUpAddress" type="text" column="pick_up_address" length="65535" nullable="true"/>
+    <field name="pickUpCp" type="string" column="pick_up_cp" length="5" nullable="true"/>
+    <field name="pickUpCity" type="string" column="pick_up_city" length="255" nullable="true"/>
+    <field name="deliveryAddress" type="text" column="delivery_address" length="65535" nullable="true"/>
+    <field name="deliveryCp" type="string" column="delivery_cp" length="5" nullable="true"/>
+    <field name="deliveryCity" type="string" column="delivery_city" length="255" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+    <field name="finishedAt" type="datetime" column="finished_at" nullable="true"/>
+    <many-to-one field="idButler" target-entity="User">
+      <join-columns>
+        <join-column name="id_butler" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idManager" target-entity="User">
+      <join-columns>
+        <join-column name="id_manager" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idClient" target-entity="Client">
+      <join-columns>
+        <join-column name="id_client" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
